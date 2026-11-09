@@ -5,6 +5,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { Layout } from './components/Layout';
+import { VendorsPage } from './pages/VendorsPage';
+import { RequisitionsPage } from './pages/RequisitionsPage'; // <--- Make sure this is here
 
 export function App() {
   return (
@@ -14,14 +17,15 @@ export function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <DashboardPage />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<DashboardPage />} />
+              <Route path="vendors" element={<VendorsPage />} />
+              <Route path="requisitions" element={<RequisitionsPage />} /> {/* <--- Make sure this is here */}
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

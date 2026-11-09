@@ -108,3 +108,17 @@ def require_permissions(*required: str) -> Callable[..., User]:
 
 def get_request_id(x_request_id: Annotated[str | None, Header(alias="X-Request-ID")] = None) -> str | None:
     return x_request_id
+
+# Add these imports at the top with the others:
+from app.services.vendor_service import VendorService
+from app.services.requisition_service import PRService
+
+# Add these to the bottom of the file:
+def get_vendor_service(session: DB) -> VendorService:
+    return VendorService(session)
+
+def get_pr_service(session: DB) -> PRService:
+    return PRService(session)
+
+VendorSvc = Annotated[VendorService, Depends(get_vendor_service)]
+PRSvc = Annotated[PRService, Depends(get_pr_service)]

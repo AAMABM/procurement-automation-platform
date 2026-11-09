@@ -23,12 +23,6 @@ from app.db.session import get_db
 from app.main import create_app
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
-
 
 @pytest_asyncio.fixture
 async def engine():

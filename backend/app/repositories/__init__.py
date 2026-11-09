@@ -1,0 +1,1 @@
+"""Repositories — persistence abstraction (Repository pattern)."""

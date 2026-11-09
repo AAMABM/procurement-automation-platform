@@ -1,0 +1,60 @@
+# Production-shaped compose. For real production, deploy via Kubernetes / Helm.
+# Everything below is what a senior engineer expects to *run locally* to
+# mirror production topology: DB → backend → frontend, with healthchecks
+# and ordered startup.
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: pp_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-procurement}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-procurement_dev_pw}
+      POSTGRES_DB: ${POSTGRES_DB:-procurement}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    container_name: pp_backend
+    env_file: ./backend/.env
+    environment:
+      POSTGRES_HOST: db
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers"
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/v1/health/live').status==200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: pp_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:

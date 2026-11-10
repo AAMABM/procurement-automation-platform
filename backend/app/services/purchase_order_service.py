@@ -12,6 +12,7 @@ from app.models.vendor import Vendor
 from app.repositories.base import BaseRepository
 from app.models.requisition import PurchaseRequisition
 from app.schemas.purchase_order import POCreate
+from app.services.sap_integration_service import SAPIntegrationService
 
 class PORepository(BaseRepository[PurchaseOrder]):
     model = PurchaseOrder
@@ -93,4 +94,9 @@ class POService:
         await self.pos.add(po)
         await self.session.commit()
         await self.session.refresh(po)
+
+        # Trigger SAP S/4HANA Integration
+        sap_service = SAPIntegrationService(self.session)
+        await sap_service.sync_po_to_sap(po, vendor.name)
+
         return po

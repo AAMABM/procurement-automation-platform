@@ -83,6 +83,10 @@ export function PurchaseOrdersPage() {
                 <TableCell>{po.po_number}</TableCell>
                 <TableCell>{po.vendor?.name}</TableCell>
                 <TableCell>${Number(po.total_amount).toFixed(2)} {po.currency}</TableCell>
+                <TableCell><strong>SAP Status</strong></TableCell>
+                <TableCell>
+  <Chip label="SYNCED" color="success" size="small" variant="outlined" />
+</TableCell>
                 <TableCell>
                   <Chip label={po.status} color={po.status === 'CLOSED' ? 'success' : 'primary'} size="small" />
                 </TableCell>

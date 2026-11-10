@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1 import auth, health, users, vendors, requisitions, purchase_orders, invoices # <-- add invoices
+from app.api.v1 import auth, health, users, vendors, requisitions, purchase_orders, invoices, mock_sap
 
 api_router = APIRouter()
 api_router.include_router(health.router)
@@ -9,3 +9,4 @@ api_router.include_router(vendors.router)
 api_router.include_router(requisitions.router)
 api_router.include_router(purchase_orders.router)
 api_router.include_router(invoices.router) # <-- add this
+api_router.include_router(mock_sap.router)

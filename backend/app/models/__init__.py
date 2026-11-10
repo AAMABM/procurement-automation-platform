@@ -5,9 +5,11 @@ from app.models.requisition import PurchaseRequisition, PRLineItem
 from app.models.purchase_order import PurchaseOrder, POLineItem
 from app.models.goods_receipt import GoodsReceipt
 from app.models.invoice import Invoice
+from app.models.integration_log import IntegrationLog # <-- Add this
 
 __all__ = [
     "User", "Role", "Permission", "user_roles", "role_permissions",
     "Vendor", "PurchaseRequisition", "PRLineItem", 
     "PurchaseOrder", "POLineItem", "GoodsReceipt", "Invoice",
+    "IntegrationLog", # <-- Add this
 ]

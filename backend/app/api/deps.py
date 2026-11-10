@@ -122,3 +122,10 @@ def get_pr_service(session: DB) -> PRService:
 
 VendorSvc = Annotated[VendorService, Depends(get_vendor_service)]
 PRSvc = Annotated[PRService, Depends(get_pr_service)]
+
+from app.services.purchase_order_service import POService
+
+def get_po_service(session: DB) -> POService:
+    return POService(session)
+
+POSvc = Annotated[POService, Depends(get_po_service)]

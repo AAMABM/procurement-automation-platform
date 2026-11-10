@@ -8,6 +8,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { Layout } from './components/Layout';
 import { VendorsPage } from './pages/VendorsPage';
 import { RequisitionsPage } from './pages/RequisitionsPage'; // <--- Make sure this is here
+import { PurchaseOrdersPage } from './pages/PurchaseOrdersPage';
 
 export function App() {
   return (
@@ -25,6 +26,7 @@ export function App() {
               <Route index element={<DashboardPage />} />
               <Route path="vendors" element={<VendorsPage />} />
               <Route path="requisitions" element={<RequisitionsPage />} /> {/* <--- Make sure this is here */}
+              <Route path="purchase-orders" element={<PurchaseOrdersPage />} />
             </Route>
           </Routes>
         </AuthProvider>

@@ -10,6 +10,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../contexts/AuthContext';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const drawerWidth = 240;
 
@@ -25,6 +26,7 @@ export function Layout() {
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
     { text: 'Vendors', icon: <StorefrontIcon />, path: '/vendors' },
     { text: 'Requisitions', icon: <AssignmentIcon />, path: '/requisitions' },
+    { text: 'Purchase Orders', icon: <ShoppingCartIcon />, path: '/purchase-orders' },
   ];
 
   const drawer = (

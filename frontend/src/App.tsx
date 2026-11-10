@@ -10,6 +10,7 @@ import { VendorsPage } from './pages/VendorsPage';
 import { RequisitionsPage } from './pages/RequisitionsPage'; // <--- Make sure this is here
 import { PurchaseOrdersPage } from './pages/PurchaseOrdersPage';
 import { InvoicesPage } from './pages/InvoicesPage';
+import { RFQsPage } from './pages/RFQsPage';
 
 export function App() {
   return (
@@ -29,6 +30,7 @@ export function App() {
               <Route path="requisitions" element={<RequisitionsPage />} /> {/* <--- Make sure this is here */}
               <Route path="purchase-orders" element={<PurchaseOrdersPage />} />
               <Route path="invoices" element={<InvoicesPage />} />
+              <Route path="rfqs" element={<RFQsPage />} />
             </Route>
           </Routes>
         </AuthProvider>

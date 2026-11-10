@@ -1,16 +1,5 @@
 """
 Purchase Order (PO) Models.
-
-Enterprise Decisions:
-    - POs are generated strictly from APPROVED PRs.
-    - We copy the line items from the PR to the PO. This creates a historical 
-      snapshot so that if the PR is ever edited or deleted, the PO remains 
-      an accurate record of what was ordered.
-    - Tied to a Vendor via `vendor_id`.
-
-SAP S/4HANA Relevance:
-    Maps to table EKKO (PO Header) and EKPO (PO Items).
-    PO Number acts like SAP's EBELN.
 """
 from typing import TYPE_CHECKING
 from uuid import UUID
@@ -31,10 +20,11 @@ class PurchaseOrder(Base, UUIDPrimaryKeyMixin, AuditMixin, SoftDeleteMixin):
 
     po_number: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     
-    # A PR can only be converted to ONE PO. 
-    requisition_id: Mapped[UUID] = mapped_column(
-        ForeignKey("purchase_requisitions.id", ondelete="RESTRICT"), unique=True, nullable=False
+    # Changed to nullable=True to support standalone RFQ generated POs
+    requisition_id: Mapped[UUID | None] = mapped_column(
+        ForeignKey("purchase_requisitions.id", ondelete="RESTRICT"), unique=True, nullable=True
     )
+    
     vendor_id: Mapped[UUID] = mapped_column(
         ForeignKey("vendors.id", ondelete="RESTRICT"), nullable=False
     )

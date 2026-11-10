@@ -12,6 +12,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../contexts/AuthContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 
 const drawerWidth = 240;
 
@@ -29,6 +30,7 @@ export function Layout() {
     { text: 'Requisitions', icon: <AssignmentIcon />, path: '/requisitions' },
     { text: 'Purchase Orders', icon: <ShoppingCartIcon />, path: '/purchase-orders' },
     { text: 'Invoices', icon: <ReceiptIcon />, path: '/invoices' },
+    { text: 'Sourcing (RFQs)', icon: <RequestQuoteIcon />, path: '/rfqs' },
   ];
 
   const drawer = (

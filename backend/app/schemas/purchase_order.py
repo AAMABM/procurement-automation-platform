@@ -22,7 +22,7 @@ class POLineItemResponse(ORMModel):
 class POResponse(ORMModel):
     id: UUID
     po_number: str
-    requisition_id: UUID
+    requisition_id: UUID | None # <--- Changed to allow None
     vendor_id: UUID
     status: str
     total_amount: Decimal

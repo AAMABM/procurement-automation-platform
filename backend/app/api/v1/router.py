@@ -10,6 +10,7 @@ from app.api.v1 import (
     invoices,
     mock_sap,
     rfqs,
+    analytics,
 )
 
 api_router = APIRouter()
@@ -22,3 +23,4 @@ api_router.include_router(purchase_orders.router)
 api_router.include_router(invoices.router)
 api_router.include_router(mock_sap.router)
 api_router.include_router(rfqs.router)
+api_router.include_router(analytics.router)  # <--- THIS LINE MUST EXIST
